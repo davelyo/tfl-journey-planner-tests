@@ -12,8 +12,8 @@ namespace TflJourneyPlanner.Tests.StepDefinitions;
 [Binding]
 public class JourneyPlannerSteps(JourneyPlannerPage plannerPage)
 {
-    [When("I open the Journey Planner")]
-    public async Task WhenIOpenTheJourneyPlanner()
+    [Given("the Journey Planner is open")]
+    public async Task GivenTheJourneyPlannerIsOpen()
     {
         await plannerPage.OpenAsync();
     }
