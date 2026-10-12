@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Playwright, read by Microsoft.Playwright.TestAdapter. -->
+  <Playwright>
+    <BrowserName>chromium</BrowserName>
+    <ExpectTimeout>5000</ExpectTimeout>
+    <LaunchOptions>
+      <Headless>false</Headless>
+      <Channel>chrome</Channel>
+    </LaunchOptions>
+  </Playwright>
+
+  <!-- Read by Support/TestSettings.cs through NUnit's TestContext.Parameters. -->
+  <TestRunParameters>
+    <Parameter name="BaseUrl" value="https://tfl.gov.uk" />
+  </TestRunParameters>
+</RunSettings>
