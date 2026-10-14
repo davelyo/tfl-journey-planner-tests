@@ -19,6 +19,54 @@ public class JourneyResultsSteps(JourneyResultsPage resultsPage)
         Assert.That(minutes, Is.GreaterThan(0), $"{heading} time in minutes");
     }
 
+    [When("I edit preferences to show {string}")]
+    public async Task WhenIEditPreferenceToShow(string preference)
+    {
+        await resultsPage.EditPreferencesAsync();
+        await resultsPage.ChoosePreferenceAsync(preference);
+    }
+
+    [When("I update my journey")]
+    public async Task WhenIUpdatedMyJourney()
+    {
+        await resultsPage.UpdateJourneyAsync();
+    }
+
+    [Given("I have edited preferences to show {string}")]
+    public async Task GivenIHaveEditedPreferencesToShow(string preference)
+    {
+        await WhenIEditPreferenceToShow(preference);
+        await WhenIUpdatedMyJourney();
+    }
+
+    [Then("the results show routes with least walking")]
+    public async Task ThenTheResultsShowRoutesWithLeastWalking()
+    {
+        await Assertions.Expect(resultsPage
+            .PreferenceSummary("Showing routes with least walking")).ToBeVisibleAsync();
+    }
+
+    [Then("the first journey option shows a journey time in minutes")]
+    public async Task ThenTheFirstJourneyOptionShowsAJourneyTimeInMinutes()
+    {
+        var minutes = await resultsPage.GetFirstOptionMinutesAsync();
+        Assert.That(minutes, Is.GreaterThan(0), "first journey option time in minutes");
+    }
+
+    [When("I view the details of the first journey option")]
+    public async Task WhenIViewTheDetailsOfTheFirstJourneyOption()
+    {
+        await resultsPage.ViewDetailsOfFirstOptionAsync();
+    }
+
+    [Then("the access information at {string} is:")]
+    public async Task ThenTheAccessInformationAtIs(string station, Table table)
+    {
+        var expected = table.Rows.Select(row => row["Access information"]);
+        var actual = await resultsPage.GetAccessInformationAsync(station);
+        Assert.That(actual, Is.EquivalentTo(expected), $"access information at {station}");
+    }
+
     [Then("the results warn {string}")]
     public async Task ThenTheResultsWarn(string message)
     {

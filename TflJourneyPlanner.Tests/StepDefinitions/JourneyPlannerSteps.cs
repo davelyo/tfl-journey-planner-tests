@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using Microsoft.Playwright;
 
 using Reqnroll;
@@ -28,6 +30,14 @@ public class JourneyPlannerSteps(JourneyPlannerPage plannerPage)
     public async Task EnterLocation(string text, LocationField field)
     {
         await plannerPage.EnterLocationAsync(field, text);
+    }
+
+    [Given("I am leaving at {string} on the next weekday")]
+    public async Task GivenIAmLeavingAtOnTheNextWeekday(string timeString)
+    {
+        var date = TravelDates.NextWeekdayInLondon();
+        var time = TimeOnly.ParseExact(timeString, "HH:mm", CultureInfo.InvariantCulture);
+        await plannerPage.LeaveAtAsync(date, time);
     }
 
     [Given("I plan my journey")]

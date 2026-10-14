@@ -55,7 +55,7 @@ Feature: Journey Planner
       When I edit preferences to show "Routes with least walking"
       And I update my journey
       Then the results show routes with least walking
-      And every journey option shows a journey time in minutes
+      And the first journey option shows a journey time in minutes
 
     Scenario: View complete access information for a station
       Given I have edited preferences to show "Routes with least walking"

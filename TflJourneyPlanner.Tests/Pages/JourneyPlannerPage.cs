@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using Microsoft.Playwright;
 
 using TflJourneyPlanner.Tests.Support;
@@ -20,6 +22,13 @@ public class JourneyPlannerPage(IPage page, TestSettings settings)
 
     private ILocator Suggestion(string name) =>
         page.GetByRole(AriaRole.Option, new() { Name = name, Exact = true });
+
+    private ILocator ChangeTimeLink =>
+        page.GetByRole(AriaRole.Link, new() { Name = "change time" });
+
+    private ILocator DepartureDate => page.GetByLabel("Date of departure");
+
+    private ILocator DepartureTime => page.GetByLabel("Time", new() { Exact = true });
 
     private ILocator PlanMyJourneyButton =>
         page.GetByRole(AriaRole.Button, new() { Name = "Plan my journey" });
@@ -52,6 +61,21 @@ public class JourneyPlannerPage(IPage page, TestSettings settings)
     {
         await LocationInput(field).FillAsync(text);
         await LocationInput(field).PressAsync("Escape");
+    }
+
+    /// <summary>
+    /// Opens "change time" and chooses a departure date and time.
+    /// </summary>
+    public async Task LeaveAtAsync(DateOnly date, TimeOnly time)
+    {
+        await ChangeTimeLink.ClickAsync();
+
+        // Date values: yyyyMMdd, e.g. 20261014
+        // Time values: HHmm, e.g. 2030
+        var dateValue = date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+        var timeValue = time.ToString("HHmm", CultureInfo.InvariantCulture);
+        await DepartureDate.SelectOptionAsync(dateValue);
+        await DepartureTime.SelectOptionAsync(timeValue);
     }
 
     public async Task PlanJourneyAsync()
