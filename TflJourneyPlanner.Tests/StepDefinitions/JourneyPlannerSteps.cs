@@ -24,8 +24,15 @@ public class JourneyPlannerSteps(JourneyPlannerPage plannerPage)
         await plannerPage.ChooseSuggestionAsync(field, partialName, suggestion);
     }
 
+    [When("I enter {string} as the {LocationField} location")]
+    public async Task EnterLocation(string text, LocationField field)
+    {
+        await plannerPage.EnterLocationAsync(field, text);
+    }
+
     [Given("I plan my journey")]
     [When("I plan my journey")]
+    [When("I plan my journey without entering any locations")]
     public async Task PlanMyJourney()
     {
         await plannerPage.PlanJourneyAsync();
@@ -35,5 +42,22 @@ public class JourneyPlannerSteps(JourneyPlannerPage plannerPage)
     public async Task ThenTheJourneyPlannerIsShown()
     {
         await Assertions.Expect(plannerPage.Heading).ToBeVisibleAsync();
+    }
+
+    [Then("the {LocationField} field warns {string}")]
+    public async Task ThenTheFieldWarns(LocationField field, string message)
+    {
+        await Assertions.Expect(plannerPage.ValidationMessage(message)).ToBeVisibleAsync();
+
+        // The message is also in the field's accessible description, so screen readers announce it.
+        await Assertions.Expect(plannerPage.LocationInput(field))
+            .ToHaveAccessibleDescriptionAsync(message);
+    }
+
+    [Then("I stay on the Journey Planner")]
+    public async Task ThenIStayOnTheJourneyPlanner()
+    {
+        await Assertions.Expect(plannerPage.Heading).ToBeVisibleAsync();
+        Assert.That(plannerPage.Url, Does.Not.Contain("/plan-a-journey/results"));
     }
 }

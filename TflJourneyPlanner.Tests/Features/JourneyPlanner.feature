@@ -24,21 +24,21 @@ Feature: Journey Planner
       When I enter "<from>" as the From location
       And I enter "<to>" as the To location
       And I plan my journey
-      Then "Journey planner could not find any results to your search. Please try again" is shown
+      Then the results warn "Journey planner could not find any results to your search. Please try again"
       And no journey options are shown
 
       Examples:
         | case         | from                                 | to                                |
         | invalid From | #####                                | Covent Garden Underground Station |
-        | invalid To   | Leicester Square Underground Station | @@@@@                             |
-        | both invalid | @@@@@                                | #####                             |
+        | invalid To   | Leicester Square Underground Station | #####                             |
+        | both invalid | #####                                | #####                             |
 
     @negative
     Scenario: A journey cannot be planned if no locations are entered
       When I plan my journey without entering any locations
-      Then "The From field is required." is shown
-      And "The To field is required." is shown
-      And no journey options are shown
+      Then the From field warns "The From field is required."
+      And the To field warns "The To field is required."
+      And I stay on the Journey Planner
 
   Rule: Planned journeys can be refined with preferences
 

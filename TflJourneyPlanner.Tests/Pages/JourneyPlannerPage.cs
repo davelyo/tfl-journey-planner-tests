@@ -9,11 +9,13 @@ namespace TflJourneyPlanner.Tests.Pages;
 /// </summary>
 public class JourneyPlannerPage(IPage page, TestSettings settings)
 {
+    public string Url => page.Url;
+
     public ILocator Heading =>
         page.GetByRole(AriaRole.Heading, new() { Name = "Plan a journey", Level = 1 });
 
     // Location inputs are comboboxes with visually hidden labels, e.g. "From location".
-    private ILocator LocationInput(LocationField field) =>
+    public ILocator LocationInput(LocationField field) =>
         page.GetByRole(AriaRole.Combobox, new() { Name = $"{field} location", Exact = true });
 
     private ILocator Suggestion(string name) =>
@@ -21,6 +23,9 @@ public class JourneyPlannerPage(IPage page, TestSettings settings)
 
     private ILocator PlanMyJourneyButton =>
         page.GetByRole(AriaRole.Button, new() { Name = "Plan my journey" });
+
+    // A validation message shown under a location field.
+    public ILocator ValidationMessage(string text) => page.GetByText(text, new() { Exact = true });
 
     public async Task OpenAsync()
     {
@@ -37,6 +42,16 @@ public class JourneyPlannerPage(IPage page, TestSettings settings)
     {
         await LocationInput(field).PressSequentiallyAsync(partialName);
         await Suggestion(suggestion).ClickAsync();
+    }
+
+    /// <summary>
+    /// Types a location without choosing a suggestion, then closes the suggestion list
+    /// so it won't cover the "Plan my journey" button.
+    /// </summary>
+    public async Task EnterLocationAsync(LocationField field, string text)
+    {
+        await LocationInput(field).FillAsync(text);
+        await LocationInput(field).PressAsync("Escape");
     }
 
     public async Task PlanJourneyAsync()
