@@ -3,6 +3,7 @@
   <!-- Playwright, read by Microsoft.Playwright.TestAdapter. -->
   <Playwright>
     <BrowserName>chromium</BrowserName>
+    <ExpectTimeout>15000</ExpectTimeout> <!-- Timeout for Expect(...) assertions -->
     <LaunchOptions>
       <Headless>true</Headless>
       <Channel>chrome</Channel>
@@ -12,5 +13,6 @@
   <!-- Read by Support/TestSettings.cs through NUnit's TestContext.Parameters. -->
   <TestRunParameters>
     <Parameter name="BaseUrl" value="https://tfl.gov.uk" />
+    <Parameter name="NavigationTimeoutMs" value="60000" /> <!-- Timeout for page navigations -->
   </TestRunParameters>
 </RunSettings>
