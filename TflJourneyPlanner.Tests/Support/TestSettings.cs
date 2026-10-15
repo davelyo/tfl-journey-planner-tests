@@ -12,6 +12,6 @@ public class TestSettings
     {
         BaseUrl = TestContext.Parameters.Get("BaseUrl")
             ?? throw new InvalidOperationException(
-                "BaseUrl parameter is missing in test.runsettings."),
+                "BaseUrl parameter is missing from test.runsettings."),
     };
 }

@@ -7,7 +7,7 @@ using TflJourneyPlanner.Tests.Support;
 namespace TflJourneyPlanner.Tests.Pages;
 
 /// <summary>
-/// The "Plan a journey" widget at /plan-a-journey. Owns its locators and interactions.
+/// The "Plan a journey" widget at /plan-a-journey/. Owns its locators and interactions.
 /// </summary>
 public class JourneyPlannerPage(IPage page, TestSettings settings)
 {

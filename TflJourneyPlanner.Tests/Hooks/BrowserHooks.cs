@@ -12,8 +12,8 @@ namespace TflJourneyPlanner.Tests.Hooks;
 /// <summary>
 /// Owns the browser lifecycle:
 /// - One Playwright instance and one browser for the whole test run;
-/// - Cookie consent (essential cookies) is given once per test run and reused;
-/// - A fresh browser context and page for each test.
+/// - Cookie consent (essential cookies only) is given once per test run and reused;
+/// - A fresh browser context and page for each scenario.
 /// </summary>
 [Binding]
 public class BrowserHooks(IObjectContainer container)

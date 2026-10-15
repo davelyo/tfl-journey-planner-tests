@@ -12,7 +12,7 @@ public class JourneyResultsPage(IPage page)
         page.GetByRole(AriaRole.Link).Filter(
             new() { Has = page.GetByRole(AriaRole.Heading, new() { Name = mode, Exact = true }) });
 
-    // The header row of every journey option: public transport and (hidden) walking and cycling
+    // The header row of every journey option: public transport and (hidden) walking and cycling.
     // Each is a role="button" whose accessible name is all its text,
     // so a CSS class is the only stable hook.
     public ILocator JourneyOptions => page.Locator(".journey-option");
