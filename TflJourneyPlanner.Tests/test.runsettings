@@ -3,9 +3,8 @@
   <!-- Playwright, read by Microsoft.Playwright.TestAdapter. -->
   <Playwright>
     <BrowserName>chromium</BrowserName>
-    <ExpectTimeout>5000</ExpectTimeout>
     <LaunchOptions>
-      <Headless>false</Headless>
+      <Headless>true</Headless>
       <Channel>chrome</Channel>
     </LaunchOptions>
   </Playwright>
