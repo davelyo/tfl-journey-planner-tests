@@ -1,7 +1,8 @@
 name: TflJourneyPlanner UI tests
 
 on:
-  push:
+  # Manual only: on GitHub-hosted runners, tfl.gov.uk shows a Cloudflare verification challenge
+  # that stops the tests.
   workflow_dispatch:
 
 jobs:
