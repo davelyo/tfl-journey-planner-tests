@@ -97,7 +97,10 @@ public class BrowserHooks(IObjectContainer container, ScenarioContext scenarioCo
         var page = await context.NewPageAsync();
 
         await new JourneyPlannerPage(page, _settings!).OpenAsync();
-        await new CookieBanner(page).AcceptEssentialOnlyAsync();
+        if (!await new CookieBanner(page).AcceptEssentialOnlyIfShownAsync())
+        {
+            TestContext.Progress.WriteLine("Cookie consent banner was not shown.");
+        }
 
         await context.StorageStateAsync(new BrowserContextStorageStateOptions { Path = path });
         await context.CloseAsync();
