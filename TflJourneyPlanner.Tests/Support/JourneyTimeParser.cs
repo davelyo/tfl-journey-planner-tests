@@ -11,7 +11,9 @@ public static class JourneyTimeParser
         var minutes = Regex.Match(timeString, @"(\d+)\s*mins?");
 
         if (!hours.Success && !minutes.Success)
+        {
             throw new FormatException($"Invalid journey time: {timeString}");
+        }
 
         return (hours.Success ? int.Parse(hours.Groups[1].Value) * 60 : 0)
             + (minutes.Success ? int.Parse(minutes.Groups[1].Value) : 0);

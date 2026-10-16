@@ -20,14 +20,14 @@ public class JourneyResultsSteps(JourneyResultsPage resultsPage)
     }
 
     [When("I edit preferences to show {string}")]
-    public async Task WhenIEditPreferenceToShow(string preference)
+    public async Task WhenIEditPreferencesToShow(string preference)
     {
         await resultsPage.EditPreferencesAsync();
         await resultsPage.ChoosePreferenceAsync(preference);
     }
 
     [When("I update my journey")]
-    public async Task WhenIUpdatedMyJourney()
+    public async Task WhenIUpdateMyJourney()
     {
         await resultsPage.UpdateJourneyAsync();
     }
@@ -35,8 +35,8 @@ public class JourneyResultsSteps(JourneyResultsPage resultsPage)
     [Given("I have edited preferences to show {string}")]
     public async Task GivenIHaveEditedPreferencesToShow(string preference)
     {
-        await WhenIEditPreferenceToShow(preference);
-        await WhenIUpdatedMyJourney();
+        await WhenIEditPreferencesToShow(preference);
+        await WhenIUpdateMyJourney();
     }
 
     [Then("the results show routes with least walking")]

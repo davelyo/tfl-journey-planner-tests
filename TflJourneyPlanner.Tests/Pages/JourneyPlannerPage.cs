@@ -38,7 +38,7 @@ public class JourneyPlannerPage(IPage page, TestSettings settings)
 
     public async Task OpenAsync()
     {
-        // The site sometimes serves an empty page without the trailing slash (/plan-a-journey)
+        // The site could serve an empty page without the trailing slash (/plan-a-journey).
         await page.GotoAsync($"{settings.BaseUrl}/plan-a-journey/");
     }
 

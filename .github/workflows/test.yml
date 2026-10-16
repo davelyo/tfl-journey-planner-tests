@@ -19,7 +19,7 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      # Google Chrome is preinstalled on the Ubuntu runner
+      # Google Chrome is preinstalled on the Ubuntu runner.
       - name: Run tests
         run: dotnet test --logger "trx;LogFileName=test_results.trx" --results-directory TestResults
 

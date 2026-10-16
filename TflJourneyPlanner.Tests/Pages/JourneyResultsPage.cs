@@ -99,8 +99,10 @@ public class JourneyResultsPage(IPage page)
     {
         var step = FirstOptionContent.Locator(".journey-detail-step").Filter(new()
         {
-            Has = page.Locator(".location-name").GetByText(station, new() { Exact = true })
+            Has = page.Locator(".location-name").GetByText(station, new() { Exact = true }),
         });
+
+        // The icons are links that go nowhere (see README, "Issues found"); update this if fixed.
         var icons = step.Locator(".access-information").GetByRole(AriaRole.Link);
         await icons.First.WaitForAsync();
 
